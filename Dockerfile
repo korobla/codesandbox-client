@@ -1,5 +1,18 @@
-FROM busybox:1.28.1
+FROM ruby:2.3.1-slim
 
-WORKDIR /codesandbox
+RUN apt-get update && \
+    apt-get install -y curl libltdl-dev bash && \ 
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY www /codesandbox
+# throw errors if Gemfile has been modified since Gemfile.lock
+ENV APP_PATH /usr/src/app
+
+RUN mkdir -p $APP_PATH
+
+WORKDIR $APP_PATH
+
+ENV RAILS_ENV development
+
+EXPOSE 3000
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
